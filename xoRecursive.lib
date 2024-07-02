@@ -4,18 +4,33 @@ Sub xoRecursive_CustomConfig()
 	Set aux1 = aux.OpenTextFile("C:\Temp\Teste.txt", 8)
 	
    ' Comece a busca recursiva a partir do diretório pai
-    Call foo(Application.GetObject(parent.PathName))
+    Call foo(Application.GetObject(parent.PathName),"AlarmeDiscreto1","DI_COMM")
+   Call foo(Application.GetObject(parent.PathName),"AlarmeDigital","DI_SO")
+   Call foo2(Application.GetObject(parent.PathName))
     
 End Sub
 
-Sub foo(folder) 
+Sub foo(folder,a,b) 
     ' Iterar sobre os arquivos no diretório atual
     For Each file In folder
-        If TypeName(file) = "DigitalAlarmSource" and file.Name = "AlarmeDigital1" Then
-            MsgBox file.PathName
-        Else
+        If file.Name = a and folder.Name = b Then
+			msgbox file.PathName		
+        Else   
             ' Se não for o objeto desejado, chamar a função recursivamente
-            Call foo(file)
+            Call foo(file,a,b)
         End If
-    Next 
+    Next
+End Sub
+
+
+Sub foo2(folder) 
+    ' Iterar sobre os arquivos no diretório atual
+    For Each file In folder
+        If file.Name = "AlarmeDigital" and folder.Name = "DI_SO" Then
+			msgbox file.PathName		
+        Else   
+            ' Se não for o objeto desejado, chamar a função recursivamente
+            Call foo2(file)
+        End If
+    Next   
 End Sub
