@@ -1,0 +1,21 @@
+Sub xoRecursive_CustomConfig()
+	Dim aux, aux1
+	Set aux = CreateObject("Scripting.FileSystemObject")
+	Set aux1 = aux.OpenTextFile("C:\Temp\Teste.txt", 8)
+	
+   ' Comece a busca recursiva a partir do diretório pai
+    Call foo(Application.GetObject(parent.PathName))
+    
+End Sub
+
+Sub foo(folder) 
+    ' Iterar sobre os arquivos no diretório atual
+    For Each file In folder
+        If TypeName(file) = "DigitalAlarmSource" and file.Name = "AlarmeDigital1" Then
+            MsgBox file.PathName
+        Else
+            ' Se não for o objeto desejado, chamar a função recursivamente
+            Call foo(file)
+        End If
+    Next 
+End Sub
